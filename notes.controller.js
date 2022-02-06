@@ -28,6 +28,13 @@ async function removeNote(id) {
   await fs.writeFile(notesPath, JSON.stringify(filtredNotes))
 }
 
+async function editNote(id, title) {
+  const notes = await getNotes()
+  notes[notes.findIndex((n) => n.id === id)].title = title
+  await fs.writeFile(notesPath, JSON.stringify(notes))
+  console.log(chalk.bgGreen('Note was update'))
+}
+
 async function printNotes() {
   const notes = await getNotes()
 
@@ -40,5 +47,6 @@ async function printNotes() {
 module.exports = {
   addNote,
   printNotes,
-  removeNote
+  removeNote,
+  editNote
 }
